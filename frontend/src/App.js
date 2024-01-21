@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React,{useEffect, useState} from 'react'
 import './App.css';
 import Header from './components/layout/Header/Header';
 import {BrowserRouter as Router,Routes,Route} from "react-router-dom"
@@ -20,6 +20,10 @@ import ForgotPassword from './components/User/ForgotPassword';
 import Cart from './components/Cart/Cart';
 import Shipping from './components/Cart/Shipping';
 import ConfirmOrder from './components/Cart/ConfirmOrder';
+import axios from 'axios';
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import Payment from './components/Cart/Payment';
 
 
 
@@ -27,6 +31,20 @@ function App() {
 
   const dispatch = useDispatch();
   const {isAuthenticated, user} = useSelector((state)=>state.load)
+
+  const [stripeapikey, setstripeapikey] = useState("")
+
+  async function getStripeApiKey(){
+
+    const {data} = await axios.get(`/api/v1/stripeapikey`)
+    
+   console.log(data.stripekey)
+    setstripeapikey(data.stripekey)
+
+
+  }
+
+  console.log(stripeapikey)
 
   useEffect(() => {
   Webfont.load({
@@ -36,6 +54,7 @@ function App() {
   })
 
     dispatch(load())
+    getStripeApiKey();
  
  }, [dispatch])
  
@@ -44,11 +63,19 @@ function App() {
     <Router>
       <Header/>
       {isAuthenticated && <UserOptions user={user} />}
+      {stripeapikey && (
+        <Elements stripe={loadStripe(stripeapikey)}>
+         <Routes>
+         <Route exact path='/process/payment' Component={Payment} />
+         </Routes>
+         
+        </Elements>
+      )}
       <Routes>
       <Route exact path='/' Component={Home}></Route>
       <Route exact path='/product/:id' Component={ProductDetails}></Route>
       <Route exact path='products' Component={Products}/>
-     < Route exact path='products/:keyword' Component={Products}/>
+      <Route exact path='products/:keyword' Component={Products}/>
       
       
 
