@@ -25,6 +25,8 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Payment from './components/Cart/Payment';
 import OrderSuccess from './components/Cart/OrderSuccess';
+import MyOrders from './components/order/MyOrders';
+import OrderDetails from './components/layout/loading/OrderDetails';
 
 
 
@@ -89,6 +91,8 @@ function App() {
       <Route exact path='/shipping' Component={Shipping}/>  
       <Route exact path='/order/confirm' Component={ConfirmOrder}/>
       <Route exact path='/success' Component={OrderSuccess}/>
+      <Route exact path = '/orders' Component={MyOrders}/>
+      <Route exact path='/order/:id' Component={OrderDetails}/>
       </Routes>
       
       <Footer/>

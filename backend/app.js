@@ -16,6 +16,7 @@ dotenv.config({path:"./config/config.env"})
 const product = require("./router/productRouter")
 const user = require("./router/userRouter")
 const payment = require("./router/paymentRoute")
+const order = require("./router/orderRouter")
 
 
 app.use("/api/v1",product)
@@ -23,6 +24,8 @@ app.use("/api/v1",product)
 app.use("/api/v1",user) 
 
 app.use("/api/v1",payment)
+
+app.use("/api/v1",order)
 
 
 

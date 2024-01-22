@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import MetaData from "../layout/MetaData";
 import { Typography } from "@material-ui/core";
 import { useAlert } from "react-alert";
+
 import {
   CardNumberElement,
   CardCvcElement,
@@ -18,12 +19,13 @@ import CreditCardIcon from "@material-ui/icons/CreditCard";
 import EventIcon from "@material-ui/icons/Event";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import { useNavigate } from "react-router-dom";
+import { orderStatus } from "../../action/orderAction";
 // import { createOrder, clearErrors } from "../../actions/orderAction";
 
 const Payment = () => {
    const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
 
-//   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
  
   const stripe = useStripe();
@@ -98,7 +100,7 @@ const Payment = () => {
             status: result.paymentIntent.status,  
           };
 
-        //   dispatch(createOrder(order));
+          dispatch(orderStatus(order));
 
           navigate("/success");
         } 

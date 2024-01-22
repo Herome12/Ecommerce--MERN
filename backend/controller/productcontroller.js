@@ -3,7 +3,7 @@ const ApiFeature = require("../utils/apiFeatures");
 const catchasyncerror = require("../middleware/catchasyncerror");
 const ErrorHandler = require("../utils/errorHandler");
 
-//create a product
+//create a product 
 
 exports.creatProduct = async(req,res,next)=>{
     const product = await Product.create(req.body);

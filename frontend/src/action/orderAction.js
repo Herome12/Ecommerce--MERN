@@ -9,6 +9,10 @@ export const MY_ORDER_REQUEST = createAction("MY_ORDER_REQUEST")
 export const MY_ORDER_FAIL = createAction("MY_ORDER_FAIL")
 export const MY_ORDER_SUCCESS = createAction("MY_ORDER_SUCCESS")
 
+export const ORDER_DETAILS_REQUEST = createAction("ORDER_DETAILS_REQUEST")
+export const ORDER_DETAILS_SUCCESS = createAction("ORDER_DETAILS_SUCCESS")
+export const ORDER_DETAILS_FAIL = createAction("ORDER_DETAILS_FAIL")
+
 export const orderStatus = (order)=>async (dispatch)=>{
 
     try {
@@ -21,7 +25,7 @@ export const orderStatus = (order)=>async (dispatch)=>{
               "Content-Type": "application/json",
             },
         }
-        const {data} = await axios.post("api/v1/order/new",order,config)   
+        const {data} = await axios.post("/api/v1/order/new",order,config)   
 
         dispatch({
             type:CREATE_ORDER_SUCCESS,
@@ -59,4 +63,19 @@ export const myOrder = ()=>async(dispatch)=>{
         })
         
     }
+}
+
+export const getOrderDetails = (id) =>async(dispatch)=>{
+    try {
+        dispatch({ type: ORDER_DETAILS_REQUEST });
+    
+        const { data } = await axios.get(`/api/v1/order/${id}`);
+    
+        dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data.order });
+      } catch (error) {
+        dispatch({
+          type: ORDER_DETAILS_FAIL,
+          payload: error.message,
+        });
+      }
 }
