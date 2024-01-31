@@ -1,9 +1,11 @@
+
+
 .banner {
   background: linear-gradient(blue,red);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 180vmin;
+  height: 250vmin;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -38,7 +40,7 @@
   color: white;
 }
 
-.banner::after {
+/* .banner::after {
   content: "";
   width: 100vw;
   height: 180vmin;
@@ -46,9 +48,9 @@
   position: absolute;
   top: 0%;
   left: 0;
-  clip-path: polygon(100% 68%, 0 100%, 100% 100%);
-  max-width: 100%;
-}
+  /* clip-path: polygon(100% 68%, 0 100%, 100% 100%); */
+  /* max-width: 100%; */
+/* } */ 
 
 .homeHeading {
   text-align: center;
@@ -135,4 +137,24 @@
     margin: 0 0.5vmax;
     font: 300 1vmax "Roboto";
   }
+}
+
+.login{
+  margin-left: 95%;
+  
+  text-decoration: none;
+ 
+  
+ 
+  align-items: center;
+  
+}
+
+.login a{
+  text-decoration: none;
+  color: black;
+  
+}
+.login a:hover{
+  color: aqua;
 }

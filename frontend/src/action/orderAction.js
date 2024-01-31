@@ -13,6 +13,11 @@ export const ORDER_DETAILS_REQUEST = createAction("ORDER_DETAILS_REQUEST")
 export const ORDER_DETAILS_SUCCESS = createAction("ORDER_DETAILS_SUCCESS")
 export const ORDER_DETAILS_FAIL = createAction("ORDER_DETAILS_FAIL")
 
+//get all orders
+export const ALL_ORDERS_REQUEST = createAction("ALL_ORDERS_REQUEST")
+export const ALL_ORDERS_SUCCESS = createAction("ALL_ORDERS_SUCCESS")
+export const ALL_ORDERS_FAIL = createAction("ALL_ORDERS_FAIL");
+
 export const orderStatus = (order)=>async (dispatch)=>{
 
     try {
@@ -79,3 +84,20 @@ export const getOrderDetails = (id) =>async(dispatch)=>{
         });
       }
 }
+
+
+export const getAllOrders = () => async (dispatch) => {
+    try {
+      dispatch({ type: ALL_ORDERS_REQUEST });
+  
+      const { data } = await axios.get("/api/v1/admin/orders");
+  
+      dispatch({ type: ALL_ORDERS_SUCCESS, payload: data.orders });
+    } catch (error) {
+      dispatch({
+        type: ALL_ORDERS_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+  

@@ -13,6 +13,13 @@ export const ALL_PRODUCTDETAILS_REQUEST = createAction(
   "ALL_PRODUCTDETAILS_REQUEST"
 );
 
+export const ADMIN_PRODUCT_REQUEST = createAction("ADMIN_PRODUCT_REQUEST")
+export const ADMIN_PRODUCT_SUCCESS = createAction("ADMIN_PRODUCT_SUCCESS")
+export const ADMIN_PRODUCT_FAIL = createAction("ADMIN_PRODUCT_FAIL")
+
+
+
+
 export const getProduct = () => async (dispatch) => {
   try {
     dispatch({
@@ -55,6 +62,26 @@ export const productDetails = (id) => async (dispatch) => {
     dispatch({
       type: ALL_PRODUCTDETAILS_FAIL,
       payload: error.message,
+    });
+  }
+};
+
+//get all products --admin
+
+export const getAdminProduct = () => async (dispatch) => {
+  try {
+    dispatch({ type: ADMIN_PRODUCT_REQUEST });
+
+    const { data } = await axios.get("/api/v1/admin/products");
+
+    dispatch({
+      type: ADMIN_PRODUCT_SUCCESS,
+      payload: data.products,
+    });
+  } catch (error) {
+    dispatch({
+      type: ADMIN_PRODUCT_FAIL,
+      payload: error.response.data.message,
     });
   }
 };

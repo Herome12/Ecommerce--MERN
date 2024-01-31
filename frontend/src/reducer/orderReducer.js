@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 
-import { CREATE_ORDER_FAIL,CREATE_ORDER_REQUEST,CREATE_ORDER_SUCCESS, MY_ORDER_FAIL, MY_ORDER_REQUEST, MY_ORDER_SUCCESS, ORDER_DETAILS_FAIL, ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS } from "../action/orderAction";
+import { ALL_ORDERS_FAIL, ALL_ORDERS_REQUEST, ALL_ORDERS_SUCCESS, CREATE_ORDER_FAIL,CREATE_ORDER_REQUEST,CREATE_ORDER_SUCCESS, MY_ORDER_FAIL, MY_ORDER_REQUEST, MY_ORDER_SUCCESS, ORDER_DETAILS_FAIL, ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS } from "../action/orderAction";
 
 
 const initialState ={
@@ -69,6 +69,31 @@ export const orderDetailsReducer = createReducer(initialState,(builder)=>{
         }
     })
     builder.addCase(ORDER_DETAILS_FAIL,(state,action)=>{
+        return{
+            loading:false,
+            error:action.payload
+        }
+    })
+})
+
+//GET ALL ORDERS
+
+export const allOrdersReducer = createReducer(initialState,(builder)=>{
+    builder.addCase(ALL_ORDERS_REQUEST,(state,action)=>{
+        return{
+            loading:true,
+        }
+    })
+
+    builder.addCase(ALL_ORDERS_SUCCESS,(state,action)=>{
+        return{
+            loading:false,
+            orders:action.payload,
+
+        }
+
+    })
+    builder.addCase(ALL_ORDERS_FAIL,(state,action)=>{
         return{
             loading:false,
             error:action.payload

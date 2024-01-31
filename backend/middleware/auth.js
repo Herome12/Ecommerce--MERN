@@ -17,18 +17,21 @@ exports.isAuthenticatedUser = catchasyncerror(async(req,res,next)=>{
     next();
 })
  
-exports.isRoleAuthentication = (...Roles)=>{
-    return (req,res,next)=>{
 
-        if(!Roles.includes(req.user.role)){
-            next(new ErrorHandler(`Role ${req.user.role} is not allowed to access`))
-
-
-        }
-        next();
-    }
-   
-}
   
+exports.isRoleAuthentication = (...roles) => {
+    return (req, res, next) => {
+      if (!roles.includes(req.user.role)) {
+        return next(
+          new ErrorHandler(
+            `Role: ${req.user.role} is not allowed to access this resouce `,
+            403
+          )
+        );
+      }
+  
+      next();
+    };
+  };
   
    

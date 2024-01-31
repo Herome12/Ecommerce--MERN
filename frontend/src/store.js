@@ -1,9 +1,9 @@
 import {configureStore} from "@reduxjs/toolkit";
 import {productreducer,productDetailsreducer} from "./reducer/Reducer";
 
-import { UserLogin, forgotReducer, loadUser, profileReducer, registerUser } from "./reducer/UserReducer";
+import { UserLogin, forgotReducer, loadUser, profileReducer, registerUser,allUserReducer } from "./reducer/UserReducer";
 import { addToCart } from "./reducer/cartReducer";
-import { myOrder,orderCreate, orderDetailsReducer } from "./reducer/orderReducer";
+import { allOrdersReducer, myOrder,orderCreate, orderDetailsReducer } from "./reducer/orderReducer";
 
 
 
@@ -21,7 +21,9 @@ const store = configureStore({
         cart:addToCart,
         myorder:myOrder,
         createorder:orderCreate,
-        orderDetails:orderDetailsReducer
+        orderDetails:orderDetailsReducer,
+        allUsers:allUserReducer,
+        allOrders:allOrdersReducer
     }
 },
 

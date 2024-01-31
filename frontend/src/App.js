@@ -27,6 +27,8 @@ import Payment from './components/Cart/Payment';
 import OrderSuccess from './components/Cart/OrderSuccess';
 import MyOrders from './components/order/MyOrders';
 import OrderDetails from './components/layout/loading/OrderDetails';
+import Dashboard from './components/admin/Dashboard';
+
 
 
 
@@ -38,16 +40,17 @@ function App() {
   const [stripeapikey, setstripeapikey] = useState("")
 
   async function getStripeApiKey(){
-
+    
+ 
     const {data} = await axios.get(`/api/v1/stripeapikey`)
     
-   console.log(data.stripekey)
+   
     setstripeapikey(data.stripekey)
 
 
   }
 
-  console.log(stripeapikey)
+  
 
   useEffect(() => {
   Webfont.load({
@@ -60,6 +63,7 @@ function App() {
     getStripeApiKey();
  
  }, [dispatch])
+ 
  
   return (
     <>
@@ -93,6 +97,7 @@ function App() {
       <Route exact path='/success' Component={OrderSuccess}/>
       <Route exact path = '/orders' Component={MyOrders}/>
       <Route exact path='/order/:id' Component={OrderDetails}/>
+      <Route  exact path='/admin/dashboard' Component={Dashboard}/>
       </Routes>
       
       <Footer/>

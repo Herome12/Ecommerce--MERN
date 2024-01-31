@@ -27,7 +27,7 @@ const LoginUser = () => {
   const [avatarPreview, setavatarPreview] = useState("/logo192.png")
   
   //use of selector
-  const { loading, Login,isAuthenticated } = useSelector((state) => state.user);
+  const { loading,isAuthenticated } = useSelector((state) => state.user);
 
  
 //use reff

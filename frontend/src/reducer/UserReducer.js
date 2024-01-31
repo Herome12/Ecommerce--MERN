@@ -23,7 +23,8 @@ import {
   FORGOT_PASSWORD_FAIL,
   FORGOT_PASSWORD_SUCCESS,
   FORGOT_PASSWORD_REQUEST,
-  RESET_PASSWORD_FAIL,RESET_PASSWORD_REQUEST,RESET_PASSWORD_SUCCESS
+  RESET_PASSWORD_FAIL,RESET_PASSWORD_REQUEST,RESET_PASSWORD_SUCCESS,
+  ALL_USERS_FAIL,ALL_USERS_REQUEST,ALL_USERS_SUCCESS
 } from "../action/UserAction";
 
 const initalValue = {
@@ -222,3 +223,27 @@ export const forgotReducer = createReducer(initalValue, (builder) => {
     };
   });
 });
+
+//get all users --admin
+
+export const allUserReducer = createReducer(initalValue, (builder)=>{
+  builder.addCase(ALL_USERS_REQUEST,(state,action)=>{
+    return{
+      loading:true,
+
+    }
+  });
+  builder.addCase(ALL_USERS_SUCCESS,(state,action)=>{
+    return{
+      loading:false,
+      users:action.payload,
+    }
+  })
+
+  builder.addCase(ALL_USERS_FAIL,(state,action)=>{
+    return{
+      loading:false,
+      error:action.payload,
+    }
+  })
+})

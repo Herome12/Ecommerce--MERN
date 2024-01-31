@@ -7,6 +7,9 @@ import {
   ALL_PRODUCTDETAILS_FAIL,
   ALL_PRODUCTDETAILS_REQUEST,
   ALL_PRODUCTDETAILS_SUCCESS,
+  ADMIN_PRODUCT_REQUEST,
+  ADMIN_PRODUCT_SUCCESS,
+  ADMIN_PRODUCT_FAIL,
 } from "../action/productAction";
 
 const initialValue = {
@@ -32,6 +35,24 @@ export const productreducer = createReducer(initialValue, (builder) => {
       error: action.payload,
     };
   });
+  builder.addCase(ADMIN_PRODUCT_REQUEST,(state,action)=>{
+    return{
+      loading:true,
+
+    }
+  });
+  builder.addCase(ADMIN_PRODUCT_SUCCESS,(state,action)=>{
+    return{
+      loading:false,
+      products:action.payload
+    }
+  });
+  builder.addCase(ADMIN_PRODUCT_FAIL,(state,action)=>{
+    return{
+      loading:false,
+      error:action.payload
+    }
+  })
 });
 
 //product details
@@ -61,3 +82,6 @@ export const productDetailsreducer = createReducer(
     });
   }
 );
+
+
+

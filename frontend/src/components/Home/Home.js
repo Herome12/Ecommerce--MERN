@@ -4,7 +4,7 @@ import "./Home.css"
 import Product from "./Product.js"
 import MetaData from "../layout/MetaData.js"
 import { getProduct } from '../../action/productAction.js'
-
+import LoginIcon from '@mui/icons-material/Login';
 import {useDispatch,useSelector} from "react-redux"
 import Loader from '../layout/loading/loader.js'
 
@@ -27,7 +27,11 @@ const Home = () => {
     <>
     {loading ? (<Loader/>):(  <>
     <MetaData title = 'Home page'></MetaData>
+    
     <div className="banner">
+    <div className="login">
+       <a href="/login">   <LoginIcon/></a>
+    </div>
        <p>
            Welcome to Ecommerce
        </p>

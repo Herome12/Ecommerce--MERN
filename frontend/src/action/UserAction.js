@@ -48,6 +48,11 @@ export const RESET_PASSWORD_REQUEST =createAction ( "RESET_PASSWORD_REQUEST");
 export const  RESET_PASSWORD_SUCCESS = createAction(" RESET_PASSWORD_SUCCESS");
 export const  RESET_PASSWORD_FAIL =createAction (" RESET_PASSWORD_FAIL");
 
+//get all user 
+export const ALL_USERS_REQUEST = createAction("ALL_USERS_REQUEST")
+export const ALL_USERS_FAIL = createAction("ALL_USERS_FAIL")
+export const ALL_USERS_SUCCESS = createAction("ALL_USERS_SUCCESS")
+
 
 export const login = (email,password) => async( dispatch) =>{
     try {
@@ -249,3 +254,15 @@ export const resetPassword = (id,passwords)=> async(dispatch)=>{
         })
     }
 }
+
+//get all users --admin
+export const getAllUsers = () => async (dispatch) => {
+    try {
+      dispatch({ type: ALL_USERS_REQUEST });
+      const { data } = await axios.get(`/api/v1/admin/users`);
+  
+      dispatch({ type: ALL_USERS_SUCCESS, payload: data.users });
+    } catch (error) {
+      dispatch({ type: ALL_USERS_FAIL, payload: error.message });
+    }
+  };
