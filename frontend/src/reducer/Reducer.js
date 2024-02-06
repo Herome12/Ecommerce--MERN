@@ -10,6 +10,13 @@ import {
   ADMIN_PRODUCT_REQUEST,
   ADMIN_PRODUCT_SUCCESS,
   ADMIN_PRODUCT_FAIL,
+  DELETE_PRODUCT_REQUEST,
+  DELETE_PRODUCT_SUCCESS,
+  DELETE_PRODUCT_FAIL,
+  DELETE_PRODUCT_RESET,
+  NEW_PRODUCT_REQUEST,
+  NEW_PRODUCT_SUCCESS,
+  NEW_PRODUCT_FAIL,
 } from "../action/productAction";
 
 const initialValue = {
@@ -83,5 +90,57 @@ export const productDetailsreducer = createReducer(
   }
 );
 
+//product reducer
+
+export const productsReducer = createReducer(initialValue,(builder)=>{
+  builder.addCase(DELETE_PRODUCT_REQUEST,(state,action)=>{
+    return{
+      loading:true,
+      ...state,
+    }
+  })
+  builder.addCase(DELETE_PRODUCT_SUCCESS,(state,action)=>{
+    return{
+      loading:false,
+      isDeleted:action.payload,
+    }
+  })
+
+  builder.addCase(DELETE_PRODUCT_FAIL,(state,action)=>{
+    return{
+      loading:false,
+      erorr:action.payload,
+    }
+  })
+  builder.addCase(DELETE_PRODUCT_RESET,(state,action)=>{
+    return {
+      ...state,
+      isDeleted: false,
+    };
+  })
+})
+
+//CREATE PRODUCT 
+
+export const newProduct = createReducer(initialValue,(builder)=>{
+  builder.addCase(NEW_PRODUCT_REQUEST,(state,action)=>{
+    return{
+      loading:true
+    }
+  })
+  builder.addCase(NEW_PRODUCT_SUCCESS,(state,action)=>{
+    return{
+      loading:false,
+      product:action.payload
+    }
+  })
+  builder.addCase(NEW_PRODUCT_FAIL,(state,action)=>{
+    return{
+      loading:false,
+      error:action.payload
+    }
+  })
+
+})
 
 

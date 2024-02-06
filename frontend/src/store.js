@@ -1,5 +1,5 @@
 import {configureStore} from "@reduxjs/toolkit";
-import {productreducer,productDetailsreducer} from "./reducer/Reducer";
+import {productreducer,productDetailsreducer, productsReducer, newProduct} from "./reducer/Reducer";
 
 import { UserLogin, forgotReducer, loadUser, profileReducer, registerUser,allUserReducer } from "./reducer/UserReducer";
 import { addToCart } from "./reducer/cartReducer";
@@ -23,7 +23,9 @@ const store = configureStore({
         createorder:orderCreate,
         orderDetails:orderDetailsReducer,
         allUsers:allUserReducer,
-        allOrders:allOrdersReducer
+        allOrders:allOrdersReducer,
+        product:productsReducer,
+        newProduct:newProduct
     }
 },
 

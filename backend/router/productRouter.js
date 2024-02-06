@@ -17,6 +17,12 @@ router.delete("/deleteProduct/:id",deleteProduct)
 
 router
   .get("/admin/products",isAuthenticatedUser, isRoleAuthentication("admin"), getAdminProducts)
+
+
+
+router.delete("/admin/product/:id",deleteProduct);
+router.post("/admin/product/new",isAuthenticatedUser, isRoleAuthentication("admin"), creatProduct)
+
  
  
-module.exports = router;  
+module.exports = router;    

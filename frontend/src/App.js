@@ -28,6 +28,8 @@ import OrderSuccess from './components/Cart/OrderSuccess';
 import MyOrders from './components/order/MyOrders';
 import OrderDetails from './components/layout/loading/OrderDetails';
 import Dashboard from './components/admin/Dashboard';
+import ProductList from './components/admin/ProductList';
+import NewProduct from './components/admin/NewProduct';
 
 
 
@@ -98,6 +100,18 @@ function App() {
       <Route exact path = '/orders' Component={MyOrders}/>
       <Route exact path='/order/:id' Component={OrderDetails}/>
       <Route  exact path='/admin/dashboard' Component={Dashboard}/>
+      <Route
+          exact
+          path='/admin/products'
+          
+          Component={ProductList}
+        />
+      <Route
+          exact
+          path="/admin/product"
+          isAdmin={true}
+          Component={NewProduct}
+        />
       </Routes>
       
       <Footer/>
