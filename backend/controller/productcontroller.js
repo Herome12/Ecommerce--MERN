@@ -6,7 +6,7 @@ const cloudinary = require("cloudinary")
 
 //create a product 
 
-exports.creatProduct = async(req,res,next)=>{
+exports.creatProduct = catchasyncerror(async(req,res,next)=>{
     let images = [];
 
     if (typeof req.body.images === "string") {
@@ -15,7 +15,7 @@ exports.creatProduct = async(req,res,next)=>{
       images = req.body.images;
     }
   
-    const imagesLinks = [];
+    const imagesLinks = []; 
   
     for (let i = 0; i < images.length; i++) {
       const result = await cloudinary.v2.uploader.upload(images[i], {
@@ -28,7 +28,7 @@ exports.creatProduct = async(req,res,next)=>{
       });
     }
   
-    req.body.images = imagesLinks;
+    req.body.images = imagesLinks; 
     req.body.user = req.user.id;
     
     const product = await Product.create(req.body);
@@ -38,17 +38,17 @@ exports.creatProduct = async(req,res,next)=>{
         message:"product created"
     })
 
-}
-
-//get all products   
+})
+ 
+//get all products  --admin 
 
 exports.getAllProduct = catchasyncerror( async(req,res,next)=>{
-    const resultPerPage = 8
-    // const apiFeature = new ApiFeature(Product.find(),req.query).search().filter()
+  
     const product = await Product.find();
     res.status(200).json({
-        
+        success:true,
         product
+
     })
 })
 
@@ -66,7 +66,7 @@ exports.getProductbyid = catchasyncerror(async(req,res,next)=>{
    }) 
 })
 
-//get product --adming
+//get product --admin
 exports.getAdminProducts = catchasyncerror(async (req, res, next) => {
     const products = await Product.find();
   

@@ -32,7 +32,7 @@ export const productreducer = createReducer(initialValue, (builder) => {
   builder.addCase(ALL_PRODUCT_SUCCESS, (state, action) => {
     return {
       loading: false,
-      product: action.payload,
+      product: action.payload.product,
     };
   });
 

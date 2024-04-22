@@ -30,26 +30,25 @@ export const NEW_PRODUCT_RESET = createAction("NEW_PRODUCT_RESET")
 // get product 
 
 
-export const getProduct = () => async (dispatch) => {
+export const getProduct = ()=>async(dispatch)=>{
   try {
     dispatch({
-      type: ALL_PRODUCT_REQUEST,
-    });
-    const { data } = await axios.get("/api/v1/getProducts");
+      type:ALL_PRODUCT_REQUEST
+    })
 
-    const { product } = await data;
-
+    const {data} = await axios.get("api/v1/getProduct");
+    console.log(data)
     dispatch({
-      type: ALL_PRODUCT_SUCCESS,
-      payload: product,
-    });
+      type:ALL_PRODUCT_SUCCESS,
+      payload:data
+    })
   } catch (error) {
     dispatch({
-      type: ALL_PRODUCT_FAIL,
-      payload: error.message,
-    });
+      type:ALL_PRODUCT_FAIL,
+    payload:error.message
+    })
   }
-};
+}
 
 
 //product details 

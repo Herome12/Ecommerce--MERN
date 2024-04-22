@@ -14,10 +14,10 @@ export const addItemCart = (id,quantity)=> async(dispatch,getState)=>{
         payload:{
             product:data.product._id,
             name:data.product.name,
-            price:data.product.prices,
-            image:data.product.Images[0].url,
+            price:data.product.price,
+            image:data.product.images[0].url,
             stock:data.product.Stock,
-            rating:data.product.rating,
+            rating:data.product.ratings,
             quantity
         }
     })

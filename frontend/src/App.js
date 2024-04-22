@@ -1,19 +1,19 @@
 import React,{useEffect, useState} from 'react'
-import './App.css';
+
 import Header from './components/layout/Header/Header';
 import {BrowserRouter as Router,Routes,Route} from "react-router-dom"
 import Webfont from "webfontloader"
 import Footer from './components/layout/footer/Footer';
 import Home from './components/Home/Home';
-
+ 
 import ProductDetails from './components/product/ProductDetails';
 import Products from './components/product/Products';
-import LoginUser from './components/User/LoginUser';
+import LoginUser from './components/User/LoginUser';     
 import { useDispatch, useSelector } from 'react-redux';
 import { load, logoutUser } from './action/UserAction';
 import UserOptions from './components/layout/Header/UserOptions';
 import Account from './components/User/Account';
-import ProtectedRoute from './components/Route/ProtectedRoute';
+import ProtectedRoute from './components/Route/ProtectedRoute'; 
 import UpdateProfile from './components/User/UpdateProfile';
 import UpdatePassword from './components/User/UpdatePassword';
 import ForgotPassword from './components/User/ForgotPassword';

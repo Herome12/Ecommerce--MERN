@@ -1,70 +1,54 @@
-import React ,{useEffect} from 'react'
-// import {CgMouse} from "react-icon/all"
-import "./Home.css"
-import Product from "./Product.js"
-import MetaData from "../layout/MetaData.js"
-import { getProduct } from '../../action/productAction.js'
-import LoginIcon from '@mui/icons-material/Login';
-import {useDispatch,useSelector} from "react-redux"
-import Loader from '../layout/loading/loader.js'
+import React, { Fragment, useEffect } from "react";
 
-
+import "./Home.css";
+import ProductCard from "./Product.js";
+import MetaData from "../layout/MetaData";
+import { clearErrors, getProduct } from "../../action/productAction";
+import { useSelector, useDispatch } from "react-redux";
+import Loader from "../layout/loading/loader";
+import { useAlert } from "react-alert";
 
 const Home = () => {
+ 
+  const dispatch = useDispatch();
+  const { loading, product } = useSelector((state) => state.products);
 
-    const dispatch = useDispatch();
-    const {loading,product} = useSelector((state)=> state.products)
-    
-    useEffect(() => {
-        dispatch(getProduct())
-        
-      
-    }, [dispatch])
-    
-
-    
-  return (
-    <>
-    {loading ? (<Loader/>):(  <>
-    <MetaData title = 'Home page'></MetaData>
-    
-    <div className="banner">
-    <div className="login">
-       <a href="/login">   <LoginIcon/></a>
-    </div>
-       <p>
-           Welcome to Ecommerce
-       </p>
-       <h1>FIND AMAZING PRODUCTS BELOW</h1>
-
-       <a href="#container">
-           <button>
-               Scroll
-
-           </button>
-       </a>
-
-       <h2 className="homeHeading">
-           Featured Product
-       </h2>
-       
-      
-       <div className="container" id='container'>
-        
-          
-          {product && product.map((product)=>(<Product product = {product}/>
-          ))}
-           
-           
-       </div>
-
-       
-    </div>
-    
-    </>)}
-    </>
+  useEffect(() => {
    
-  )
-}
+    dispatch(getProduct());
+  }, [dispatch]);
 
-export default Home
+  return (
+    <Fragment>
+      {loading ? (
+        <Loader />
+      ) : (
+        <Fragment>
+          <MetaData title="ECOMMERCE" />
+
+          <div className="banner">
+            <p>Welcome to Ecommerce</p>
+            <h1>FIND AMAZING PRODUCTS BELOW</h1>
+
+            <a href="#container">
+              <button>
+                Scroll 
+              </button>
+            </a>
+          </div>
+
+          <h2 className="homeHeading">Featured Products</h2>
+
+          <div className="container" id="container">
+            {product &&
+              product.map((product) => (
+                <ProductCard key={product._id} product={product} />
+              ))}
+          </div>
+        </Fragment>
+      )}
+    </Fragment>
+  );
+};
+
+export default Home;

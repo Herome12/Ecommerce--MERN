@@ -17,7 +17,7 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
 
   const order = await Order.create({
     shippingInfo,
-    orderItems,
+    orderItems, 
     paymentInfo,
     itemsPrice,
     taxPrice,
@@ -32,7 +32,7 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
     order,
   });
 });
-
+ 
 // get Single Order
 exports.getSingleOrder = catchAsyncErrors(async (req, res, next) => {
   const order = await Order.findById(req.params.id).populate(

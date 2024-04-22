@@ -66,6 +66,7 @@ const NewProduct = () => {
       myForm.append("images", image);
     });
     dispatch(createProduct(myForm));
+    navigate("/")
   };
 
   const createProductImagesChange = (e) => {

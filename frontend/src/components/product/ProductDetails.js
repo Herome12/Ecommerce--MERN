@@ -68,7 +68,7 @@
             <div>
               <Carousel>
                 {product &&
-                  product.Images.map((item, i) => (
+                  product.images.map((item, i) => (
                     <img
                       className="CarouselImage"
                       key={i}
@@ -92,7 +92,7 @@
                 </span>
               </div>
               <div className="detailsBlock-3">
-                <h1>{product&&`₹${product && product.prices}`}</h1>
+                <h1>{product&&`₹${product && product.price}`}</h1>
                 <div className="detailsBlock-3-1">
                   <div className="detailsBlock-3-1-1">
                     <button onClick={decrement}>-</button>
