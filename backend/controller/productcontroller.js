@@ -78,22 +78,55 @@ exports.getAdminProducts = catchasyncerror(async (req, res, next) => {
 
 //update product 
 
-exports.updateProduct = catchasyncerror(async(req,res,next)=>{
-    const product = await Product.findByIdAndUpdate(req.params.id,req.body);
-    if(!product){
-        res.status(500).json({
-            success:false,
-            message:"product couldn't be found in database"
-        })
+exports.updateProduct = catchasyncerror(async (req, res, next) => {
+  let product = await Product.findById(req.params.id);
+
+  if (!product) {
+    return next(new ErrorHander("Product not found", 404));
+  }
+
+  // Images Start Here
+  let images = [];
+
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
+
+  if (images !== undefined) {
+    // Deleting Images From Cloudinary
+    for (let i = 0; i < product.images.length; i++) {
+      await cloudinary.v2.uploader.destroy(product.images[i].public_id);
     }
-    //if product found
 
-    res.status(200).json({
-        success:true,
-        product
-    })
-})
+    const imagesLinks = [];
 
+    for (let i = 0; i < images.length; i++) {
+      const result = await cloudinary.v2.uploader.upload(images[i], {
+        folder: "products",
+      });
+
+      imagesLinks.push({
+        public_id: result.public_id,
+        url: result.secure_url,
+      });
+    }
+
+    req.body.images = imagesLinks;
+  }
+
+  product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
+  res.status(200).json({
+    success: true,
+    product,
+  });
+});
 //delete products 
 
 exports.deleteProduct = catchasyncerror( async(req,res,next)=>{

@@ -24,7 +24,16 @@ import {
   FORGOT_PASSWORD_SUCCESS,
   FORGOT_PASSWORD_REQUEST,
   RESET_PASSWORD_FAIL,RESET_PASSWORD_REQUEST,RESET_PASSWORD_SUCCESS,
-  ALL_USERS_FAIL,ALL_USERS_REQUEST,ALL_USERS_SUCCESS
+  ALL_USERS_FAIL,ALL_USERS_REQUEST,ALL_USERS_SUCCESS,
+  DELETE_USER_REQUEST,
+  DELETE_USER_SUCCESS,
+  DELETE_USER_FAIL,
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAIL,
+  USER_DETAILS_REQUEST,
+  USER_DETAILS_SUCCESS,
+  USER_DETAILS_FAIL,
 } from "../action/UserAction";
 
 const initalValue = {
@@ -174,7 +183,48 @@ export const profileReducer = createReducer(initalValue, (builder) => {
   });
   builder.addCase(UPDATE_PASSWORD_RESET, (state, action) => {
     return {
+      ...state,
+      loading: true,
+    };
+  });
+  builder.addCase(DELETE_USER_SUCCESS, (state, action) => {
+    return {
+      ...state,
+        loading: false,
+        isDeleted: action.payload.success,
+        message: action.payload.message,
+    };
+  });
+  builder.addCase(DELETE_USER_REQUEST, (state, action) => {
+    return {
       isUpdated: false,
+    };
+  });
+  builder.addCase(DELETE_USER_FAIL, (state, action) => {
+    return {
+      ...state,
+      loading: false,
+      error: action.payload,
+    };
+  });
+  builder.addCase( UPDATE_USER_FAIL, (state, action) => {
+    return {
+      ...state,
+      loading: false,
+      error: action.payload,
+    };
+  });
+  builder.addCase( UPDATE_USER_REQUEST, (state, action) => {
+    return {
+      ...state,
+      loading: true,
+    };
+  });
+  builder.addCase( UPDATE_USER_SUCCESS, (state, action) => {
+    return {
+      ...state,
+        loading: false,
+        isUpdated: action.payload,
     };
   });
 });
@@ -244,6 +294,34 @@ export const allUserReducer = createReducer(initalValue, (builder)=>{
     return{
       loading:false,
       error:action.payload,
+    }
+  })
+})
+
+
+//USER GETDETAILS
+
+export const userDetailsReducer = createReducer(initalValue,(builder)=>{
+  builder.addCase(USER_DETAILS_FAIL,(state,action)=>{
+    return{
+      ...state,
+      loading:true
+    }
+  })
+
+  builder.addCase(USER_DETAILS_REQUEST,(state,action)=>{
+    return{
+      ...state,
+        loading: true,
+
+    }
+  })
+
+  builder.addCase(USER_DETAILS_SUCCESS,(state,action)=>{
+    return{
+      ...state,
+        loading: false,
+        user: action.payload,
     }
   })
 })

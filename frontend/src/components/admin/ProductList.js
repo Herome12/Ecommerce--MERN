@@ -22,6 +22,7 @@ const ProductList = () => {
   const dispatch = useDispatch();
   const {id} = useParams();
   const navigate = useNavigate();
+  const alert = useAlert()
 
   
 
@@ -47,7 +48,7 @@ const ProductList = () => {
     // }
 
     if (isDeleted) {
-      // alert.success("Product Deleted Successfully");
+      alert.success("Product Deleted Successfully");
       navigate("/admin/dashboard");
       dispatch({ type: DELETE_PRODUCT_RESET });
     }

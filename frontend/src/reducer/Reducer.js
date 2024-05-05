@@ -10,6 +10,10 @@ import {
   ADMIN_PRODUCT_REQUEST,
   ADMIN_PRODUCT_SUCCESS,
   ADMIN_PRODUCT_FAIL,
+  UPDATE_PRODUCT_REQUEST,
+  UPDATE_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_FAIL,
+  UPDATE_PRODUCT_RESET,
   DELETE_PRODUCT_REQUEST,
   DELETE_PRODUCT_SUCCESS,
   DELETE_PRODUCT_FAIL,
@@ -118,6 +122,33 @@ export const productsReducer = createReducer(initialValue,(builder)=>{
       isDeleted: false,
     };
   })
+  builder.addCase(UPDATE_PRODUCT_FAIL,(state,action)=>{
+    return{
+      ...state,
+        loading: false,
+        error: action.payload,
+    }
+  })
+  builder.addCase(UPDATE_PRODUCT_REQUEST,(state,action)=>{
+    return{
+      ...state,
+        loading: true,
+    }
+  })
+  builder.addCase(UPDATE_PRODUCT_SUCCESS,(state,action)=>{
+    return{
+      ...state,
+        loading: false,
+        isUpdated: action.payload,
+    }
+  })
+  builder.addCase(UPDATE_PRODUCT_RESET,(state,action)=>{
+    return{
+      ...state,
+        isUpdated: false,
+    }
+  })
+  
 })
 
 //CREATE PRODUCT 

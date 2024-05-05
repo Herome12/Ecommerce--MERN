@@ -1,6 +1,10 @@
 import { createReducer } from "@reduxjs/toolkit";
 
-import { ALL_ORDERS_FAIL, ALL_ORDERS_REQUEST, ALL_ORDERS_SUCCESS, CREATE_ORDER_FAIL,CREATE_ORDER_REQUEST,CREATE_ORDER_SUCCESS, MY_ORDER_FAIL, MY_ORDER_REQUEST, MY_ORDER_SUCCESS, ORDER_DETAILS_FAIL, ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS } from "../action/orderAction";
+import { ALL_ORDERS_FAIL,   DELETE_ORDER_REQUEST,
+    DELETE_ORDER_SUCCESS,
+    DELETE_ORDER_FAIL,ALL_ORDERS_REQUEST,UPDATE_ORDER_REQUEST,
+    UPDATE_ORDER_SUCCESS,
+    UPDATE_ORDER_FAIL, ALL_ORDERS_SUCCESS, CREATE_ORDER_FAIL,CREATE_ORDER_REQUEST,CREATE_ORDER_SUCCESS, MY_ORDER_FAIL, MY_ORDER_REQUEST, MY_ORDER_SUCCESS, ORDER_DETAILS_FAIL, ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS } from "../action/orderAction";
 
 
 const initialState ={
@@ -97,6 +101,49 @@ export const allOrdersReducer = createReducer(initialState,(builder)=>{
         return{
             loading:false,
             error:action.payload
+        }
+    })
+})
+
+
+export const orderReducer = createReducer(initialState,(builder)=>{
+    builder.addCase(DELETE_ORDER_FAIL,(state,action)=>{
+        return{
+            loading:false,
+            error:action.payload
+        }
+    })
+    builder.addCase(DELETE_ORDER_REQUEST,(state,action)=>{
+        return{
+            ...state,
+            loading: true,
+        }
+    })
+    builder.addCase(DELETE_ORDER_SUCCESS,(state,action)=>{
+        return{
+            ...state,
+            loading: false,
+            isDeleted: action.payload,   
+        }
+    })
+    builder.addCase(UPDATE_ORDER_FAIL,(state,action)=>{
+        return{
+            loading:false,
+            error:action.payload
+        }
+    })
+    builder.addCase(UPDATE_ORDER_REQUEST,(state,action)=>{
+        return{
+            ...state,
+        loading: true,
+        }
+    })
+    builder.addCase(UPDATE_ORDER_SUCCESS,(state,action)=>{
+        return{
+            ...state,
+            loading: false,
+            isUpdated: action.payload,
+          
         }
     })
 })

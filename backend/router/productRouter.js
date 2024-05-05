@@ -20,7 +20,8 @@ router
 
 
 
-router.delete("/admin/product/:id",deleteProduct);
+router.delete("/admin/product/:id",isAuthenticatedUser,isRoleAuthentication("admin"),deleteProduct);
+router.put("/admin/product/:id",isAuthenticatedUser,isRoleAuthentication("admin"),updateProduct)
 router.post("/admin/product/new",isAuthenticatedUser, isRoleAuthentication("admin"), creatProduct)
 
  

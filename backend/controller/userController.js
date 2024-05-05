@@ -264,7 +264,7 @@ exports.getAllUser = catchAsyncErrors(async (req, res, next) => {
   
     if (!user) {
       return next(
-        new ErrorHander(`User does not exist with Id: ${req.params.id}`)
+        new ErrorHandler(`User does not exist with Id: ${req.params.id}`)
       );
     }
   
@@ -299,7 +299,7 @@ exports.getAllUser = catchAsyncErrors(async (req, res, next) => {
   
     if (!user) {
       return next(
-        new ErrorHander(`User does not exist with Id: ${req.params.id}`, 400)
+        new ErrorHandler(`User does not exist with Id: ${req.params.id}`, 400)
       );
     }
   
@@ -324,3 +324,67 @@ exports.getAllUser = catchAsyncErrors(async (req, res, next) => {
       users,
     });
   });
+
+  //get single user(admin)
+
+  exports.getSingleUser = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req.params.id);
+  
+    if (!user) {
+      return next(
+        new ErrorHandler(`User does not exist with Id: ${req.params.id}`)
+      );
+    }
+  
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  });
+
+
+//update user role(admin)
+
+exports.updateUserRole = catchAsyncErrors(async (req, res, next) => {
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+    role: req.body.role,
+  };
+
+  await User.findByIdAndUpdate(req.params.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
+  res.status(200).json({
+    success: true,
+  });
+});
+
+
+// Delete User --Admin
+exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return next(
+      new ErrorHandler(`User does not exist with Id: ${req.params.id}`, 400)
+    );
+  }
+
+  const imageId = user.avatar.public_id;
+
+  // Assuming you're using cloudinary to store the avatar image and you want to delete it before removing the user
+  await cloudinary.v2.uploader.destroy(imageId);
+
+  await User.deleteOne({ _id: req.params.id }); // Use deleteOne method
+
+  res.status(200).json({
+    success: true,
+    message: "User Deleted Successfully",
+  });
+});
+
+

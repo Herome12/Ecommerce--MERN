@@ -8,10 +8,12 @@ import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import FaceIcon from "@material-ui/icons/Face";
 import { useNavigate } from "react-router-dom"
+import { useAlert } from "react-alert";
 
 const LoginUser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const alert = useAlert();
   const [loginEmail, setloginEmail] = useState(null)
 
   const [loginPassword, setloginPassword] = useState(null)

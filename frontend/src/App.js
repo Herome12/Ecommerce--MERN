@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { load, logoutUser } from './action/UserAction';
 import UserOptions from './components/layout/Header/UserOptions';
 import Account from './components/User/Account';
-import ProtectedRoute from './components/Route/ProtectedRoute'; 
+
 import UpdateProfile from './components/User/UpdateProfile';
 import UpdatePassword from './components/User/UpdatePassword';
 import ForgotPassword from './components/User/ForgotPassword';
@@ -30,8 +30,12 @@ import OrderDetails from './components/layout/loading/OrderDetails';
 import Dashboard from './components/admin/Dashboard';
 import ProductList from './components/admin/ProductList';
 import NewProduct from './components/admin/NewProduct';
-
-
+import UpdateProduct from "./components/admin/UpdateProduct.js";
+import OrderList from "./components/admin/OrderList.js";
+import ProcessOrder from "./components/admin/ProcessOrder.js";
+import UsersList from "./components/admin/UsersList.js";
+import UpdateUser from "./components/admin/UpdateUser.js";
+import NotFound from "./components/layout/Not Found/NotFound.js";
 
 
 function App() {
@@ -111,6 +115,42 @@ function App() {
           path="/admin/product"
           isAdmin={true}
           Component={NewProduct}
+        />
+          <Route
+          exact
+          path="/admin/product/:id"
+          isAdmin={true}
+          Component={UpdateProduct}
+        />
+
+      <Route
+          exact
+          path="/admin/orders"
+          isAdmin={true}
+          Component={OrderList}
+        />
+        <Route
+          exact
+          path="/admin/order/:id"
+          isAdmin={true}
+          Component={ProcessOrder}
+        />
+         <Route
+          exact
+          path="/admin/users"
+          isAdmin={true}
+          Component={UsersList}
+        />
+          <Route
+          exact
+          path="/admin/user/:id"
+          isAdmin={true}
+          Component={UpdateUser}
+        />
+        <Route
+          component={
+            window.location.pathname === "/process/payment" ? null : NotFound
+          }
         />
       </Routes>
       
